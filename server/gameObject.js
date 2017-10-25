@@ -9,6 +9,10 @@ module.exports = {
         { text: "They're just fine" },
         { text: "Anywhere but Hasborouck" },
         
+    ],
+    exercises: [
+       { name: "Bench Press" },
+       { name:  "Squat"      }
     ]
     
 }

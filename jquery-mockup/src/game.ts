@@ -4,6 +4,16 @@ export class Quote {
     text: string
 }
 
+export class Ex {
+    name: string
+}
+
+/*let myex: Ex = {name: "Bench Press" }
+let exArr: Ex[] = [
+    { name: "Running" },
+    { name: "Swimming"}
+] */
+
 export class Player {
     name: string = "Moshe Plotkin";
     quotes: Quote[] = [];
@@ -41,14 +51,18 @@ export class Game {
     players: Player[] = [];
     pictures: string[] = [];
     quotes: Quote[] = [];
+    exercises: Ex[] = [];
 
-    init() {
+    init() {     //everything inside .when being sent to client
         return $.when(
             $.getJSON("/game/pictures").done( data => {
                 this.pictures = data;
             }),
             $.getJSON("/game/quotes").done( data =>{
                 this.quotes = data;
+            }),
+            $.getJSON("/game/exercises").done( data =>{
+                this.exercises = data;
             })
         );
     }
@@ -70,6 +84,7 @@ game.init().done(()=>{
     me.quotes = game.quotes;
     me.drawQuotes();
 
+    console.log(game.exercises);
 });
 
 
