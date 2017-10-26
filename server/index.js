@@ -1,12 +1,12 @@
 const express = require("express");
 const handler = require("./httpHandler")
-const gameController = require("./gameController");
+const exController = require("./gameController");
 
 const server = express();
 
 server.use("/client", express.static("./jquery-mockup"))
 server.use("/old", handler.main);
-server.use("/game", gameController.router );
+server.use("/ExerciseLog", exController.router );
     
 
 server.listen(3001);

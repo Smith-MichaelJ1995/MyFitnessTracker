@@ -1,12 +1,11 @@
 import * as $ from 'jquery';
 
-export class Quote {
-    text: string
-}
-
 export class Ex {
     name: string
+}
 
+export class ExComplete {
+    name: string
 }
 
 /*let myex: Ex = {name: "Bench Press" }
@@ -15,100 +14,47 @@ let exArr: Ex[] = [
     { name: "Swimming"}
 ] */
 
-export class Player {
-    name: string = "Moshe Plotkin";
-    quotes: Quote[] = [];
-    score: number = 0;
-
-    drawQuotes(){
-        $("#my-quotes").html(
-            this.quotes.map( x => `<li class="list-group-item">${x.text}</li>` ).join("")
-        );
-    }
-}
-
-export class Room {
-    players: Player[] = [new Player(), new Player()];
-    dealer: Player;
-    picture: string;
-    quotes: Quote[] = [];
-
-    drawPicture() {
-        $("#picture").attr("src", this.picture);
-    }
-    drawQuotes(){
-        $("#played-quotes").html(
-            this.quotes.map( x => `<li class="list-group-item">${x.text}</li>` ).join("")
-        );
-    }
-    drawPlayers(){
-        $("#players").html(
-            this.players.map( x => `<li class="list-group-item">${x.name}</li>` ).join("")
-        );
-    }
-}
-
-export class Game {
-    players: Player[] = [];
-    pictures: string[] = [];
-    quotes: Quote[] = [];
+export class ActivityManager {
     exercises: Ex[] = [];
+    completed_exercises: ExComplete[] = [];
 
     init() {     //everything inside .when being sent to client
         return $.when(
-            $.getJSON("/game/pictures").done( data => {
-                this.pictures = data;
-            }),
-            $.getJSON("/game/quotes").done( data =>{
-                this.quotes = data;
-            }),
-            $.getJSON("/game/exercises").done( data =>{
+            $.getJSON("/ExerciseLog/exercises").done( data =>{
                 this.exercises = data;
+            }),
+            $.getJSON("/ExerciseLog/exercises_complete").done( data =>{
+                this.completed_exercises = data;
             })
         );
     }
 
+    /*my-exercises-completed*/
     displayExercises(){
         $("#my-exercises").html(
-            this.exercises.map( x => `<a class="list-group-item">${x.name}</a>` ).join("")
-        );
+            this.exercises.map( x => `<a class="list-group-item list-group-item-action">${x.name}</a>` ).join("")
+        );  
+    }
+    displayExercisesComplete(){
+        $("#my-exercises-completed").html(
+            this.completed_exercises.map( x => `<a class="list-group-item list-group-item-action">${x.name}</a>` ).join("")
+        );  
     }
 }
 
-// Controller
 
-const game = new Game();
-const room = new Room();
-const me = new Player();
+// Controller
+const activities = new ActivityManager();
 var i = 0;
 
-game.init().done(()=>{
-    room.picture = game.pictures[i];
-    room.drawPicture();
-    room.drawQuotes();
-    room.drawPlayers();
-
-    me.quotes = game.quotes;
-    me.drawQuotes();
-
+activities.init().done(()=>{
     
 
-    $("#cmd-flip").click(function(e){
-        e.preventDefault();
-        i++;
-        room.picture = game.pictures[i];
-        room.drawPicture();
-    })
-    
-    $("#sign-up-now").click(function(e){
-        console.log(game.exercises);
-    
-        e.preventDefault();
-        i++;
-        room.picture = game.pictures[i];
-        room.drawPicture();
-    })
+    activities.displayExercises();
+    activities.displayExercisesComplete();
+    //get the parent div, get children, each function
 
-    game.displayExercises();
+    /*jQuery function to handle the exercise-log lists */
 });
+
 

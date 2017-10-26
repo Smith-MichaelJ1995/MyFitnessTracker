@@ -1,11 +1,10 @@
 const express = require("express");
-const game = require("./gameObject");
+const activites = require("./gameObject");
 
 const router = express.Router();
 
 router
-    .get("/pictures", (req, res) => res.send(game.pictures))
-    .get("/quotes", (req, res) => res.send(game.quotes))
-    .get("/exercises", (req, res) => res.send(game.exercises))
+    .get("/exercises", (req, res) => res.send(activites.exercises))
+    .get("/exercises_complete", (req, res) => res.send(activites.exercises_completed))
 
 module.exports.router = router;
