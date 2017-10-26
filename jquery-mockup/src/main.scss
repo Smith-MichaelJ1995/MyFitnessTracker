@@ -2,6 +2,10 @@
 $primary-background: #8D8DEB;
 $monospace: "Courier New", Courier, monospace;
 
+body {
+    background-color: #E6E6FA;
+}
+
 header {
     background: $primary-background;
     margin-bottom: 10px;
@@ -15,3 +19,12 @@ header {
         text-align: center;
     }   
 }
+
+#motivation-link:hover,#advice-link:hover,#exercise-link:hover,#food-link:hover,#profile-link:hover,#login-link:hover {
+      background-color: #F0E68C;
+}
+
+.jumbotron{
+    background-color:#EEE8AA;
+}
+
