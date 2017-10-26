@@ -54,7 +54,20 @@ activities.init().done(()=>{
     activities.displayExercisesComplete();
     //get the parent div, get children, each function
 
+// [{}, {}, {}]
+let detached: JQuery;
+
     /*jQuery function to handle the exercise-log lists */
+    $('#my-exercises').children().each(function() {
+        let aTag = $(this);
+        aTag.on('click', function() {
+            detached = aTag.detach();
+            
+            $('#my-exercises-completed').append(detached[0]);
+        })
+    });
+
+    
 });
 
 
