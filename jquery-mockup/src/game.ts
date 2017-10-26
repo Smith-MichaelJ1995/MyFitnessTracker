@@ -6,6 +6,7 @@ export class Quote {
 
 export class Ex {
     name: string
+
 }
 
 /*let myex: Ex = {name: "Bench Press" }
@@ -66,6 +67,12 @@ export class Game {
             })
         );
     }
+
+    displayExercises(){
+        $("#my-exercises").html(
+            this.exercises.map( x => `<a class="list-group-item">${x.name}</a>` ).join("")
+        );
+    }
 }
 
 // Controller
@@ -84,13 +91,24 @@ game.init().done(()=>{
     me.quotes = game.quotes;
     me.drawQuotes();
 
-    console.log(game.exercises);
+    
+
+    $("#cmd-flip").click(function(e){
+        e.preventDefault();
+        i++;
+        room.picture = game.pictures[i];
+        room.drawPicture();
+    })
+    
+    $("#sign-up-now").click(function(e){
+        console.log(game.exercises);
+    
+        e.preventDefault();
+        i++;
+        room.picture = game.pictures[i];
+        room.drawPicture();
+    })
+
+    game.displayExercises();
 });
 
-
-$("#cmd-flip").click(function(e){
-    e.preventDefault();
-    i++;
-    room.picture = game.pictures[i];
-    room.drawPicture();
-})

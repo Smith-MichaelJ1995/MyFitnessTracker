@@ -11,8 +11,11 @@ module.exports = {
         
     ],
     exercises: [
-       { name: "Bench Press" },
-       { name:  "Squat"      }
+       { name: "Walking" },
+       { name: "Swimming"      },
+       { name: "Rowing"      },
+       { name: "I Ran at 3am this morning"      },
+       { name: "I ran at 11am"      }   /*Walking,Swimming,Rowing,I Ran at 3am this morning,I ran at 11am*/
     ]
     
 }
